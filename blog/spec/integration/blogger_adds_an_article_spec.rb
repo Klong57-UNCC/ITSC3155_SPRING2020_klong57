@@ -20,3 +20,20 @@ feature "Blogger adds an article" do
         expect(page). to have_content("This is a new capybara article")
     end
 end
+
+feature"Blogger Shows an article" do
+    scenario "Blogger successfully navigates to the show article page from the listing articles page" do
+        visit new_article_path
+        expect(page).to have_content("New Article")
+        fill_in "Title", with: "New Capybara Article"
+        fill_in "Text", with: "This is a new capybara article"
+        click_button "Create Article"
+        expect(page). to have_content("New Capybara Article")
+        expect(page). to have_content("This is a new capybara article")
+        visit articles_path
+        click_link "Show"
+        expect(page). to have_content("New Capybara Article")
+        expect(page). to have_content("This is a new capybara article")
+    end
+end
+
